@@ -6,22 +6,29 @@ from rest_framework.decorators import api_view
 from .serializer import ProductSerializer
 from rest_framework import generics
 
-class DetailApiView(generics.RetrieveAPIView):
+class DetailProductView(generics.RetrieveAPIView):
     queryset =Product.objects.all()
     serializer_class=ProductSerializer
 
-class CreateApiView(generics.CreateAPIView):
+class CreateProductView(generics.CreateAPIView):
     queryset =Product.objects.all()
     serializer_class=ProductSerializer
     def perform_create(self, serializer):
         name=serializer.validated_data.get('name')
-        content=serializer.validated_data.get('content')
+        content=serializer.validated_data.get('content') or None
         if content is None:
             content=name
         serializer.save(content=content)
 
-
-
+class UdapteProductView(generics.UpdateAPIView):
+    queryset =Product.objects.all()
+    serializer_class=ProductSerializer
+    def perform_update(self, serializer):
+        name=serializer.validated_data.get('name')
+        content=serializer.validated_data.get('content') or None
+        if content is None:
+            content=name
+        serializer.save(content=content)
 
 
 
