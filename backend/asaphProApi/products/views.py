@@ -10,8 +10,15 @@ class DetailApiView(generics.RetrieveAPIView):
     queryset =Product.objects.all()
     serializer_class=ProductSerializer
 
-
-
+class CreateApiView(generics.CreateAPIView):
+    queryset =Product.objects.all()
+    serializer_class=ProductSerializer
+    def perform_create(self, serializer):
+        name=serializer.validated_data.get('name')
+        content=serializer.validated_data.get('content')
+        if content is None:
+            content=name
+        serializer.save(content=content)
 
 
 
