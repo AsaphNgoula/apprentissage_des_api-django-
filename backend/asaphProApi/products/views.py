@@ -30,6 +30,10 @@ class UdapteProductView(generics.UpdateAPIView):
             content=name
         serializer.save(content=content)
 
+class DeleteProductView(generics.DestroyAPIView):
+    queryset =Product.objects.all()
+    serializer_class=ProductSerializer
+
 
 
 
