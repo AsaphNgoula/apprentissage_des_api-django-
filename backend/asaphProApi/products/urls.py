@@ -1,5 +1,5 @@
 from django.urls import path 
-from .views import view_api
+from .views import DetailApiView
 urlpatterns = [
-    path('',view_api,name='api_view')
+    path('<int:pk>/',DetailApiView.as_view()),
 ]
